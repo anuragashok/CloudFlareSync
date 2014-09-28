@@ -93,6 +93,8 @@ Cloudflare record id, it is used to update the correct record. if you are adding
 Editing the CSV File
 ---------------------
 
+**always run a fetch before editing your csv file**
+
 *Deleting a row from the csv will delete the record*
 
 *Changing any values in a existing record in the csv will update the corresponding record on cloudflare (based on rec_id column)*

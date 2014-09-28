@@ -9,11 +9,11 @@ Usage
 
 Before running make sure to rename config.default.json to config.json
 
-**-fetch **
+**-fetch**
 
 will fetch current records from cloudflare and write it to a local csv file (overwriting existing file). Filename is picked from config.json
 
-**-sync **
+**-sync**
 
 will sync will compare the local file with cloudflare records and sync any additions, updates or deletion done in the local file.
 

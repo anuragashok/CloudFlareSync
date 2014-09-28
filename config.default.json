@@ -1,0 +1,6 @@
+{"file": "records.csv",
+    "backup_file": "cf_bkp.csv",
+    "url": "https://www.cloudflare.com/api_json.html",
+    "email": "your_cloudlfare_email_here",
+    "tkn": "your_cloudflare_api_key_here",
+    "domains": ["domain1.com", "domain2.com"]}

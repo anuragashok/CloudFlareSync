@@ -47,11 +47,16 @@ class CFAPI:
         data = dict()
         data['a'] = 'rec_load_all'
         data['z'] = zone
-        result = self.call(data)
-        if (result['recs'].get('objs')):
-            return result['recs']['objs']
-        else:
-            return list()
+        objs = list()
+        while True:
+            result = self.call(data)
+            if (result['recs'].get('objs')):
+                objs = objs + result['recs']['objs']
+            if (result['recs']['has_more']):
+                data['o'] = len(objs)
+            else:
+                break
+        return objs
 
     def rec_new(self, rec):
         data = dict()

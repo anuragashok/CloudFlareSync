@@ -48,7 +48,10 @@ class CFAPI:
         data['a'] = 'rec_load_all'
         data['z'] = zone
         result = self.call(data)
-        return result['recs']
+        if (result['recs'].get('objs')):
+            return result['recs']['objs']
+        else:
+            return list()
 
     def rec_new(self, rec):
         data = dict()
@@ -112,25 +115,24 @@ class CFSync:
 
         self.remoteData = list()
         for zone_name in self.zoneList:
-            records = self.cfapi.rec_load_all(zone_name)
-            if (records.get('objs')):
-                for rec in records['objs']:
-                    row = dict()
-                    row['zone_name'] = rec.get('zone_name')
-                    row['type'] = rec.get('type')
-                    row['name'] = rec.get('name')
-                    row['content'] = rec.get('content')
-                    row['ttl'] = rec.get('ttl')
-                    row['service_mode'] = rec.get('service_mode')
-                    row['prlo'] = rec.get('prlo')
-                    row['service'] = rec.get('service')
-                    row['srvname'] = rec.get('srvname')
-                    row['protocol'] = rec.get('protocol')
-                    row['weight'] = rec.get('weight')
-                    row['port'] = rec.get('port')
-                    row['target'] = rec.get('target')
-                    row['rec_id'] = rec.get('rec_id')
-                    self.remoteData.append(row)
+            objs = self.cfapi.rec_load_all(zone_name)
+            for rec in objs:
+                row = dict()
+                row['zone_name'] = rec.get('zone_name')
+                row['type'] = rec.get('type')
+                row['name'] = rec.get('name')
+                row['content'] = rec.get('content')
+                row['ttl'] = rec.get('ttl')
+                row['service_mode'] = rec.get('service_mode')
+                row['prlo'] = rec.get('prlo')
+                row['service'] = rec.get('service')
+                row['srvname'] = rec.get('srvname')
+                row['protocol'] = rec.get('protocol')
+                row['weight'] = rec.get('weight')
+                row['port'] = rec.get('port')
+                row['target'] = rec.get('target')
+                row['rec_id'] = rec.get('rec_id')
+                self.remoteData.append(row)
 
     def writeRecordsToFile(self, file, data):
         writer = csv.DictWriter(f=open(file, 'w'), fieldnames=self.fieldnames)
